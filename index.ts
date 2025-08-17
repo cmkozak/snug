@@ -1,4 +1,10 @@
-import { bundle } from './src/bundler.js';
+import { createModule } from './src/bundler.js';
 
-const entry = process.argv[2] || './example/index.js';
-bundle(entry);
+function main() {
+  const entry = './example/index.js';
+  const mod = createModule(entry);
+
+  console.log('Module: ', mod);
+}
+
+main();
