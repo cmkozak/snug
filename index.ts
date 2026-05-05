@@ -1,3 +1,3 @@
 import { bundle } from './src/bundler.js';
 
-bundle('./example/index.js', './out/bundle.js');
+bundle('./example/ts/index.ts', './out/bundle.js');

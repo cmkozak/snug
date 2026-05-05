@@ -5,7 +5,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-pnpm dev           # tsc compile → run dist/index.js (the build script)
+pnpm build         # tsc compile → run dist/index.js (the build script)
+pnpm dev           # run out/bundle.js directly via ts-node
 node out/bundle.js   # run the bundled output after a successful build
 ```
 

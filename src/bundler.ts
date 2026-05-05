@@ -2,10 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { transformSync } from '@swc/core';
 import { buildGraph, type GraphModule } from './graph.js';
-
-function getSyntax(filePath: string): 'typescript' | 'ecmascript' {
-  return filePath.endsWith('.ts') || filePath.endsWith('.tsx') ? 'typescript' : 'ecmascript';
-}
+import { getSyntax } from './utils.js';
 
 // Rewrite relative import specifiers to absolute paths before transformation
 // so that after SWC converts them to require() calls, they match the module map keys.

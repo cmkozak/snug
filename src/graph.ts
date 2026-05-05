@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { parseSync } from '@swc/core';
+import { getSyntax } from './utils.js';
 
 export type GraphModule = {
   filePath: string;
@@ -10,9 +11,11 @@ export type GraphModule = {
 
 export function parseModule(filePath: string): GraphModule {
   const content = fs.readFileSync(filePath, 'utf-8');
+  const syntax = getSyntax(filePath);
   const ast = parseSync(content, {
-    syntax: 'ecmascript',
-    jsx: true,
+    syntax,
+    jsx: syntax === 'ecmascript',
+    tsx: syntax === 'typescript',
   });
 
   const deps: string[] = [];
