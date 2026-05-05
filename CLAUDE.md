@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 pnpm dev           # tsc compile → run dist/index.js (the build script)
-node dist/bundle.js  # run the bundled output after a successful build
+node out/bundle.js   # run the bundled output after a successful build
 ```
 
 No test runner is configured. Node v22.14.0 (`.nvmrc`).

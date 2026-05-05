@@ -1,10 +1,3 @@
-import { createModule } from './src/bundler.js';
+import { bundle } from './src/bundler.js';
 
-function main() {
-  const entry = './example/index.js';
-  const mod = createModule(entry);
-
-  console.log('Module: ', mod);
-}
-
-main();
+bundle('./example/index.js', './out/bundle.js');

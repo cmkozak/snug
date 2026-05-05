@@ -5,7 +5,10 @@
   "type": "module",
   "packageManager": "pnpm@10.12.1",
   "scripts": {
-    "dev": "tsc && node dist/index.js"
+    "build": "tsc && node dist/index.js",
+    "dev": "ts-node out/bundle.js",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

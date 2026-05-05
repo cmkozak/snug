@@ -2,15 +2,20 @@ import fs from 'fs';
 import path from 'path';
 import { parseSync } from '@swc/core';
 
-// Parse a single file and return its dependencies
-export function parseModule(filePath) {
+export type GraphModule = {
+  filePath: string;
+  deps: string[];
+  content: string;
+};
+
+export function parseModule(filePath: string): GraphModule {
   const content = fs.readFileSync(filePath, 'utf-8');
   const ast = parseSync(content, {
     syntax: 'ecmascript',
     jsx: true,
   });
 
-  const deps = [];
+  const deps: string[] = [];
   for (const item of ast.body) {
     if (item.type === 'ImportDeclaration') {
       deps.push(item.source.value);
@@ -20,20 +25,19 @@ export function parseModule(filePath) {
   return { filePath, deps, content };
 }
 
-// Recursively build dependency graph
-export function buildGraph(entry) {
+export function buildGraph(entry: string): Map<string, GraphModule> {
   const entryPath = path.resolve(entry);
-  const modules = new Map();
+  const modules = new Map<string, GraphModule>();
 
-  function traverse(filePath) {
-    if (modules.has(filePath)) return; // avoid cycles
+  function traverse(filePath: string) {
+    if (modules.has(filePath)) return;
     const mod = parseModule(filePath);
     modules.set(filePath, mod);
 
-    mod.deps.forEach((dep) => {
+    for (const dep of mod.deps) {
       const depPath = path.resolve(path.dirname(filePath), dep);
       traverse(depPath);
-    });
+    }
   }
 
   traverse(entryPath);
