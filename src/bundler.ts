@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { buildGraph } from './graph.js';
 import { parseFileSync } from '@swc/core';
 
 export type Module = {
